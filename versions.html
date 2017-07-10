@@ -1,0 +1,91 @@
+<html>
+<head>
+<title>Retail-Artefact VCS</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.css" rel="stylesheet">
+
+<style>
+.table td,th {
+   text-align: center;
+}
+.container{
+	padding-top:50px;
+}
+#fupload{
+	margin-bottom:0.5em;
+}
+.bootstrap-filestyle>input{
+	margin-bottom:0.5em;
+}
+.form-control{
+	margin-bottom:0.5em;
+}
+</style>
+
+</head>
+<body>
+	<!--Modal to upload new document-->
+	<div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+		<div class="modal-content">
+		<div class="modal-header">
+			<h5 class="modal-title">Upload Document</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			  <span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		  <div class="modal-body">
+			<form action="/upload/VD" method="post" enctype="multipart/form-data">
+				<div class="input-group">
+				  <span class="input-group-addon" id="fnameaddon">File Version Name</span>
+				  <input type="text" class="form-control" name="filename" placeholder=".." aria-describedby="fnameaddon">
+				</div>
+				<br>
+				<input type="file" name="file" class="filestyle" data-buttonBefore="true" data-buttonName="btn-primary">
+				<br>
+			<button type="submit" class="btn btn-primary">Upload</button>
+			</form>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	<!-- End of upload modal-->
+	<div class="container">
+		<div class="row">
+			<table class="table">
+			  <thead class="thead-inverse text-center">
+				<tr>
+				  <th>Version Name Type</th>
+				  <th>Uploaded By</th>
+				  <th>Upload Date</th>
+				  <th>Version Number</th>
+          <th>Download Link</th>
+          <th>Delete</th>
+				</tr>
+			  </thead>
+			  <tbody>
+          <% for(var i=0 ; i < docs.length; i++) { %>
+          <tr>
+          <th><%= docs[i].doctype %></th>
+				  <td><%= docs[i].lastModified %></td>
+				  <td><%= docs[i].lastModifiedBy %></td>
+				  <td><%= docs[i].totalVersions %></td>
+          </tr>
+        <% } %>
+			  </tbody>
+			</table>
+		</div>
+		<div class="row">
+			<table class="table">
+				<tr>
+					<td><button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#uploadModal">Upload New Document</button></td>
+					<td><button type="button" class="btn btn-danger btn-block">Delete a Document</button></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="/javascripts/bootstrap-filestyle.min.js"></script>
+	<script src="https://v4-alpha.getbootstrap.com/dist/js/bootstrap.min.js"></script>
+
+</body>
+</html>
